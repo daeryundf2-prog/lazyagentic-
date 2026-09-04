@@ -69,6 +69,7 @@
 
 ### 3.2 Banned Signature Phrases & Lexicon
 - **Summary cliches**: Eliminate `결론적으로`, `요약하면`, `종합하면`, `정리하자면`, `시사하는 바가 크다`, `매우 중요하다`, `주목할 만하다`, `간과할 수 없다`, `지평을 연다`, `방점을 찍는다`.
+- **Scope of the summary-cliche ban**: This bans *generating* the phrases. It is not a mandate to strip every occurrence out of text that already exists. When an editing pass is driven by the `humanize-korean` skill (lazyothers), that skill's calibrated `D-1` threshold governs the 결산 lexicon instead — it keeps 1~2 occurrences once the count exceeds three. Its threshold is grounded in external measurement (KatFish, LREAD) and deliberately avoids the over-correction that blanket removal produces in human-written prose. Do not apply both rules to the same pass.
 - **Hype words**: Avoid empty hype (`혁신적인`, `획기적인`, `전례 없는`, `압도적`, `파격적`, `폭발적`). Replace with verifiable facts and metrics.
 - **Connective ending commas**: Do not place a comma immediately after connective verb endings (`-고,`, `-며,`, `-지만,`, `-면서,`, `-아서,`).
 
