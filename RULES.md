@@ -7,6 +7,8 @@
 
 This file is the single, authoritative entry point for all AI agents (Gemini/Antigravity, Claude Code, Codex, etc.). It establishes a lightweight, on-demand situational routing system that prevents context-window bloat and token fatigue.
 
+**Antigravity + Gemini 3.8:** keep the session UI on Gemini 3.8 Flash (High). `~/agentic/` is a Directory Junction to this plugin. If that path is missing, read the same files under `~/.gemini/config/plugins/lazyagentic/`.
+
 ---
 
 ## 1. CRITICAL MANDATES & SINGLE SESSION READ PRINCIPLE
@@ -55,7 +57,7 @@ Consult and read the target rule file immediately when your task matches any of 
 - **Directive**: Structure comparisons with GFM tables, use GitHub alert blocks for critical notices, quote parentheses in Mermaid diagrams, specify language IDs on all code blocks, and place parentheses outside markdown bold delimiters.
 
 ### 08. CLI Command Execution & Safety
-- **Trigger**: When executing shell commands via `run_command`, writing CLI scripts, or executing terminal actions.
+- **Trigger**: When executing shell commands via `Shell` / `Bash` / `run_command` / `execute_command`, writing CLI scripts, or executing terminal actions.
 - **Target Path**: [~/agentic/rules/08-cli-execution.md](~/agentic/rules/08-cli-execution.md)
 - **Directive**: Enforce clean, safe, and workspace-contained command execution. Respect Windows PowerShell syntax and environment boundaries.
 

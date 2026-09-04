@@ -1,6 +1,6 @@
 # 08. CLI Command Execution & Safety (Windows & PowerShell Optimized)
 
-> **Trigger**: When executing shell commands via `run_command`, writing CLI scripts, or configuring terminal sandbox execution.  
+> **Trigger**: When executing shell commands via Antigravity `Shell` / `Bash` / `run_command` / `execute_command`, writing CLI scripts, or configuring terminal sandbox execution.  
 
 ## Directives
 
