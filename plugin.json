@@ -1,0 +1,24 @@
+{
+  "name": "lazyagentic",
+  "version": "1.0.0",
+  "description": "Agentic governance sanctuary, situational routing, and natural Korean prose policy for AI agents.",
+  "author": {
+    "name": "daeryundf2-prog",
+    "url": "https://github.com/daeryundf2-prog"
+  },
+  "license": "MIT",
+  "keywords": [
+    "antigravity",
+    "antigravity-plugin",
+    "agentic",
+    "governance",
+    "situational-routing",
+    "korean-prose",
+    "harness"
+  ],
+  "interface": {
+    "displayName": "LazyAgentic",
+    "category": "Governance & Rule Engine",
+    "homepage": "https://github.com/daeryundf2-prog"
+  }
+}
