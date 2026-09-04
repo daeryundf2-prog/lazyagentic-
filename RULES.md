@@ -46,9 +46,9 @@ Consult and read the target rule file immediately when your task matches any of 
 - **Target Path**: [~/agentic/rules/03-korean-natural-prose.md](~/agentic/rules/03-korean-natural-prose.md)
 - **Directive**: Enforce context-driven subject omission (zero-anaphora); eliminate translation-ese (double passives, by-passives, abstract subjects, structural metaphor suffixes `~ 축`, `~경험을 보유하다`, empty savior formulas `책임지고 통제하다`, redundant `투입 첫날부터` filler); enforce anti-parroting and solution-first rules; eradicate AI cliches under the removal-only rule; and maintain ending variety and rhythm harmony.
 
-### 03. Korean Verb Precision & Prohibited Lexicon Policy
+### 04. Korean Verb Precision & Prohibited Lexicon Policy
 - **Trigger**: When communicating in Korean, writing user-facing documentation, committing messages, or formulating status logs.
-- **Target Path**: [~/agentic/rules/03-korean-verb-usage.md](~/agentic/rules/03-korean-verb-usage.md)
+- **Target Path**: [~/agentic/rules/04-korean-verb-usage.md](~/agentic/rules/04-korean-verb-usage.md)
 - **Directive**: Strictly ban `박다` across all inflections, non-technical mimetic expressions, body metaphors, and colloquial slang. Enforce approved technical verb mapping across all technical operations.
 
 ### 07. Response Visualization & Terminal Formatting
