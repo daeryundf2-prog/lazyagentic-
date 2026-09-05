@@ -1,5 +1,9 @@
+﻿# Test script for lazyagentic
 $base = "C:\Users\HP\.gemini\config\plugins\lazyagentic"
 $junction = "C:\Users\HP\agentic"
+$maxLines = 800
+$maxBytes = 46080
+$maxChars = 10000
 
 Write-Host "=== TEST 1: Junction Path Integrity ==="
 if ((Test-Path $junction) -and (Test-Path "$junction\rules")) {
@@ -9,16 +13,31 @@ if ((Test-Path $junction) -and (Test-Path "$junction\rules")) {
     exit 1
 }
 
-Write-Host "`n=== TEST 2: File Length (<10k chars) & Existence ==="
-$ruleFiles = Get-ChildItem -Path "$base\rules" -Filter "*.md"
+Write-Host "`n=== TEST 2: Rule File Integrity & Tool Capacity Audit (rules/) ==="
+Write-Host "Single tool call limit ($maxLines lines, $maxBytes bytes, $maxChars chars):`n"
+$ruleFiles = Get-ChildItem -Path "$base\rules" -Filter "*.md" | Sort-Object Name
 $allPassed = $true
+
+Write-Host ("{0,-30} | {1,8} | {2,10} | {3,22} | {4,15}" -f "Rule File", "Lines", "Bytes", "Tool Headroom", "Status")
+Write-Host ("-" * 95)
+
 foreach ($file in $ruleFiles) {
-    $len = (Get-Content $file.FullName -Raw).Length
-    if ($len -gt 10000) {
-        Write-Host "[FAIL] $($file.Name) length: $len chars (exceeds 10k)" -ForegroundColor Red
-        $allPassed = $false
+    $raw = Get-Content $file.FullName -Raw
+    $lines = (Get-Content $file.FullName).Count
+    $bytes = (Get-Item $file.FullName).Length
+    $chars = $raw.Length
+
+    $remainLines = $maxLines - $lines
+    $remainKB = [math]::Round(($maxBytes - $bytes) / 1024, 1)
+
+    if ($lines -le $maxLines -and $bytes -le $maxBytes -and $chars -le $maxChars) {
+        $status = "[PASS] Complete"
+        $lineRemainStr = "$remainLines lines, $remainKB KB"
+        Write-Host ("{0,-30} | {1,6} L | {2,8} B | {3,18} free | {4,15}" -f $file.Name, $lines, $bytes, $lineRemainStr, $status) -ForegroundColor Green
     } else {
-        Write-Host "[PASS] $($file.Name): $len chars (within limit)" -ForegroundColor Green
+        $status = "[FAIL] Exceeded"
+        $allPassed = $false
+        Write-Host ("{0,-30} | {1,6} L | {2,8} B | {3,18} free | {4,15}" -f $file.Name, $lines, $bytes, "Over limit", $status) -ForegroundColor Red
     }
 }
 
