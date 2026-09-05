@@ -61,6 +61,11 @@ Consult and read the target rule file immediately when your task matches any of 
 - **Target Path**: [~/agentic/rules/08-cli-execution.md](~/agentic/rules/08-cli-execution.md)
 - **Directive**: Enforce clean, safe, and workspace-contained command execution. Respect Windows PowerShell syntax and environment boundaries.
 
+### 09. Modern Go Development Guidelines (JetBrains Modernizer)
+- **Trigger**: When authoring, editing, refactoring, or reviewing Go (`.go`, `go.mod`, `go.work`) code.
+- **Target Path**: [~/agentic/rules/09-go-modern-guidelines.md](~/agentic/rules/09-go-modern-guidelines.md)
+- **Directive**: Enforce modern Go idioms (Go 1.21~1.27) based on JetBrains Modernizer standards. Strictly eliminate deprecated or anti-pattern Go code (`interface{}` -> `any`, manual loops -> `slices`/`maps`, `if-else` min/max -> built-in `min`/`max`, `for i:=0; i<n; i++` -> `for i := range n`, nested nil fallback -> `cmp.Or`, `sync.OnceValue`, `errors.AsType`, `t.Context()`, `json:",omitzero"`).
+
 ### 11. Evidence Required & Diagnostic Verification
 - **Trigger**: When stating technical conclusions, diagnosing runtime/test failures, or claiming performance or behavior facts.
 - **Target Path**: [~/agentic/rules/11-evidence-required.md](~/agentic/rules/11-evidence-required.md)
