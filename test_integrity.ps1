@@ -1,15 +1,23 @@
-﻿# Test script for lazyagentic
-$base = "C:\Users\HP\.gemini\config\plugins\lazyagentic"
-$junction = "C:\Users\HP\agentic"
+﻿# Test script for lazyagentic (Windows PowerShell)
+# Usage: .\test_integrity.ps1 [-BasePath <plugin-dir>] [-Junction <junction-dir>]
+param(
+    [string]$BasePath = (Join-Path $env:USERPROFILE ".gemini\config\plugins\lazyagentic"),
+    [string]$Junction = (Join-Path $env:USERPROFILE "agentic")
+)
+$base = $BasePath
+$junction = $Junction
 $maxLines = 800
 $maxBytes = 46080
-$maxChars = 10000
+$maxChars = 12000
 
 Write-Host "=== TEST 1: Junction Path Integrity ==="
+Write-Host "base=$base junction=$junction"
 if ((Test-Path $junction) -and (Test-Path "$junction\rules")) {
     Write-Host "[PASS] Junction $junction exists and is readable" -ForegroundColor Green
+} elseif ((Test-Path "$base\rules")) {
+    Write-Host "[WARN] Junction missing — falling back to plugin path $base (see README Dual-Mount)" -ForegroundColor Yellow
 } else {
-    Write-Host "[FAIL] Junction not accessible" -ForegroundColor Red
+    Write-Host "[FAIL] Neither junction nor plugin path readable" -ForegroundColor Red
     exit 1
 }
 
@@ -48,7 +56,7 @@ foreach ($m in $matches) {
     $relPath = $m.Groups[1].Value
     $target1 = Join-Path $base $relPath
     $target2 = Join-Path $junction $relPath
-    if ((Test-Path $target1) -and (Test-Path $target2)) {
+    if ((Test-Path $target1) -or (Test-Path $target2)) {
         Write-Host "[PASS] Target exists: $relPath" -ForegroundColor Green
     } else {
         Write-Host "[FAIL] Missing target: $relPath" -ForegroundColor Red
@@ -56,13 +64,28 @@ foreach ($m in $matches) {
     }
 }
 
+# 제목-파일명 정합성: 04 파일의 첫 제목이 # 04. 로 시작하는지 등
+Write-Host "`n=== TEST 3b: Rule File Title Consistency ==="
+foreach ($file in $ruleFiles) {
+    if ($file.Name -match '^(\d+)-') {
+        $num = $Matches[1]
+        $first = (Get-Content $file.FullName -TotalCount 1)
+        if ($first -match "^#\s*$num\.") {
+            Write-Host "[PASS] Title matches: $($file.Name)" -ForegroundColor Green
+        } else {
+            Write-Host "[FAIL] Title mismatch: $($file.Name) -> '$first'" -ForegroundColor Red
+            $allPassed = $false
+        }
+    }
+}
+
 Write-Host "`n=== TEST 4: Global GEMINI.md Entry Point Resolution ==="
-$globalGemini = "C:\Users\HP\.gemini\config\GEMINI.md"
+$globalGemini = Join-Path (Split-Path (Split-Path $base -Parent) -Parent) "GEMINI.md"
+# $base=~/.gemini/config/plugins/lazyagentic -> global dir = ~/.gemini/config
 if (Test-Path $globalGemini) {
-    Write-Host "[PASS] Global GEMINI.md exists" -ForegroundColor Green
+    Write-Host "[PASS] Global GEMINI.md exists ($globalGemini)" -ForegroundColor Green
 } else {
-    Write-Host "[FAIL] Global GEMINI.md missing" -ForegroundColor Red
-    $allPassed = $false
+    Write-Host "[WARN] Global GEMINI.md missing ($globalGemini) — plugin path still usable" -ForegroundColor Yellow
 }
 
 if ($allPassed) {

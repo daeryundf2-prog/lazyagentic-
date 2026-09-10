@@ -1,4 +1,4 @@
-# 03. Korean Verb Precision & Prohibited Lexicon Policy
+# 04. Korean Verb Precision & Prohibited Lexicon Policy
 
 > **Trigger**: When communicating in Korean, writing user-facing documentation, committing messages, or formulating status logs.  
 

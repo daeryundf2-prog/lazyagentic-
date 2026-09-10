@@ -1,4 +1,4 @@
-# Modern Go Guidelines (JetBrains Modernizer Policy)
+# 09. Modern Go Guidelines (JetBrains Modernizer Policy)
 
 > **Source**: [JetBrains/go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines)  
 > **Target**: Go 1.21 ~ Go 1.27+  

@@ -29,6 +29,8 @@ This file is the single, authoritative entry point for all AI agents (Gemini/Ant
 
 ## 2. SITUATIONAL TRIGGERS & REFERENCED RULE PATHS
 
+> Numbers `02/05/06/10` are RESERVED (not missing).
+
 Consult and read the target rule file immediately when your task matches any of the following situational triggers:
 
 ### 00. Mandatory Session Start & Uncertainty Resolution
