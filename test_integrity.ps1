@@ -1,4 +1,4 @@
-﻿# Test script for lazyagentic (Windows PowerShell)
+# Test script for lazyagentic (Windows PowerShell)
 # Usage: .\test_integrity.ps1 [-BasePath <plugin-dir>] [-Junction <junction-dir>]
 param(
     [string]$BasePath = (Join-Path $env:USERPROFILE ".gemini\config\plugins\lazyagentic"),
@@ -91,6 +91,67 @@ if (Test-Path $globalGemini) {
     Write-Host "[PASS] Global GEMINI.md exists ($globalGemini)" -ForegroundColor Green
 } else {
     Write-Host "[WARN] Global GEMINI.md missing ($globalGemini) — plugin path still usable" -ForegroundColor Yellow
+    if ($Strict) {
+        Write-Host "[FAIL] Strict mode: Global GEMINI.md missing ($globalGemini)" -ForegroundColor Red
+        $allPassed = $false
+    }
+}
+
+Write-Host "`n=== TEST 5: Markdown Relative Links Integrity ==="
+$linkErrors = 0
+$mdFiles = Get-ChildItem -Path $base -Filter "*.md" -Recurse | Where-Object { $_.FullName -notmatch '\\\.git\\' }
+foreach ($file in $mdFiles) {
+    $content = Get-Content $file.FullName -Raw
+    $links = [regex]::Matches($content, '\]\(([^)]+)\)')
+    foreach ($m in $links) {
+        $link = $m.Groups[1].Value
+        if ($link -match '^(http|mailto:|~|#)') { continue }
+        $target = ($link -split '[#?]')[0]
+        if ([string]::IsNullOrWhiteSpace($target)) { continue }
+        if ($target -match '[/\.]') {
+            $p1 = Join-Path $file.DirectoryName $target
+            $p2 = Join-Path $base $target
+            if (-not (Test-Path $p1) -and -not (Test-Path $p2)) {
+                Write-Host "[FAIL] Broken relative link in $($file.Name): $link" -ForegroundColor Red
+                $linkErrors++
+                $allPassed = $false
+            }
+        }
+    }
+}
+if ($linkErrors -eq 0) {
+    Write-Host "[PASS] All relative markdown links resolve to valid physical files" -ForegroundColor Green
+}
+
+Write-Host "`n=== TEST 6: Korean Natural Prose & Verb Policy Integrity ==="
+$rulesText = Get-Content (Join-Path $base "RULES.md") -Raw
+if ($rulesText -match "Korean Natural Prose" -and $rulesText -match "Korean Verb Precision") {
+    Write-Host "[PASS] RULES.md contains Korean prose & verb precision trigger policies" -ForegroundColor Green
+} else {
+    Write-Host "[FAIL] RULES.md missing Korean policy triggers" -ForegroundColor Red
+    $allPassed = $false
+}
+
+$p03 = Join-Path $base "rules\03-korean-natural-prose.md"
+if (Test-Path $p03) {
+    $t03 = Get-Content $p03 -Raw
+    if ($t03 -match "zero-anaphora" -and $t03 -match "translation-ese") {
+        Write-Host "[PASS] 03-korean-natural-prose.md contains zero-anaphora & translation-ese policies" -ForegroundColor Green
+    } else {
+        Write-Host "[FAIL] 03-korean-natural-prose.md missing syntax policy keywords" -ForegroundColor Red
+        $allPassed = $false
+    }
+}
+
+$p04 = Join-Path $base "rules\04-korean-verb-usage.md"
+if (Test-Path $p04) {
+    $t04 = Get-Content $p04 -Raw
+    if ($t04 -match "박다") {
+        Write-Host "[PASS] 04-korean-verb-usage.md contains prohibited verb rules (박다 ban)" -ForegroundColor Green
+    } else {
+        Write-Host "[FAIL] 04-korean-verb-usage.md missing verb usage rules" -ForegroundColor Red
+        $allPassed = $false
+    }
 }
 
 if ($allPassed) {
