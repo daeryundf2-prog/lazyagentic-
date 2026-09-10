@@ -95,9 +95,9 @@ In agentic frameworks (Claude Code, Gemini Antigravity, AGY CLI), an agent canno
   - Deterministically catches unconfirmed destructive actions, unauthorized git commits, or out-of-scope code generation during plan-only phases, prompting for explicit user confirmation (`"permissionDecision": "ask"`).
 
 ### Reference Implementation & Runtime Activation
-- **Status**: No bundled hook scripts ship with this plugin (rules-only — see README "no hooks, no MCP").
-  The 3-tier description above is an integration pattern for hosts that support lifecycle hooks,
-  not a claim that `hooks/` exists in this repo.
+- **Status**: Minimal scaffold ships at `hooks/intent-guard/intent-guard.mjs` (STOP/PreToolUse: transcript check + 3 unverified-claim keywords → `decision:continue`, else approve). Plugin stays rules-only — no `hooks` key in `plugin.json` (see README "no hooks, no MCP").
+  The 3-tier description above is an integration pattern for hosts that support lifecycle hooks;
+  wire the scaffold path below only on hosts with hook runtimes.
 - **If you adopt it**: place your guard script at `hooks/intent-guard/intent-guard.mjs`
   (or `~/agentic/hooks/intent-guard/intent-guard.mjs`) and register it below.
   Until then, enforcement is by model compliance, not mechanical blocking.
@@ -106,4 +106,4 @@ In agentic frameworks (Claude Code, Gemini Antigravity, AGY CLI), an agent canno
   - **Antigravity / Gemini**: Configure in `.agents/hooks.json` or `~/.gemini/config/hooks.json` under `Stop` and `PreInvocation`.
 
 ## Relationship to Other Rules & Precedence
-This rule outranks all other global rules (`rule 01-language-english`, `rule 02-korean-verb-usage`, `rule 04-meta-labels`, `rule 11-evidence-required`, `rule 12-tech-versions`). It serves as upstream guard for `rule 11-evidence-required` §3 by prohibiting silent completion of unverified states. This is the highest-priority rule in the system; only user explicit direction lifts a stop.
+This rule outranks all other global rules (`rule 01-harness-records`, `rule 03-korean-natural-prose`, `rule 04-korean-verb-usage`, `rule 08-cli-execution`, `rule 11-evidence-required`, `rule 09-go-modern-guidelines`). It serves as upstream guard for `rule 11-evidence-required` §3 by prohibiting silent completion of unverified states. This is the highest-priority rule in the system; only user explicit direction lifts a stop.

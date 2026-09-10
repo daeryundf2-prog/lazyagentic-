@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+// sync-versions.mjs — check 4 version spots; exit 1 on mismatch. Run: node scripts/sync-versions.mjs [--base dir]
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+const bi = process.argv.indexOf("--base");
+const base = bi !== -1 ? process.argv[bi + 1] : ".";
+const pj = JSON.parse(readFileSync(join(base, "plugin.json"), "utf8"));
+const rules = readFileSync(join(base, "RULES.md"), "utf8");
+const instinct = readFileSync(join(base, "rules/00-instinct.md"), "utf8");
+const mR = rules.match(/\*\*Version\*\*:\s*(\d+\.\d+\.\d+)/);
+const mI = instinct.match(/\*\*Version\*\*:\s*(\d+\.\d+\.\d+)/);
+// Spots: plugin.json version (plugin track), rulesVersion (rules track),
+// RULES.md Version (must equal rulesVersion), 00-instinct Version (instinct track).
+const spots = { "plugin.json:version": pj.version, "plugin.json:rulesVersion": pj.rulesVersion, "RULES.md:Version": mR?.[1], "00-instinct:Version": mI?.[1] };
+for (const [k, v] of Object.entries(spots)) console.log(`${k}=${v ?? "MISSING"}`);
+if (!pj.version || !pj.rulesVersion || !mR?.[1] || !mI?.[1]) { console.error("missing version spot"); process.exit(1); }
+if (pj.rulesVersion !== mR[1]) { console.error(`mismatch rulesVersion ${pj.rulesVersion} vs RULES.md ${mR[1]}`); process.exit(1); }
+// plugin/instinct tracks are independent semver lines; only presence + rules-track equality enforced.
+// Usage without package.json: node scripts/sync-versions.mjs [--base <plugin-dir>]
+console.log("versions OK (rules track aligned; plugin/instinct tracks present)");

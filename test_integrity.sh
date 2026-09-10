@@ -58,5 +58,15 @@ for f in "$BASE"/rules/*.md; do
     *) echo "[FAIL] Title mismatch: $base -> '$first'"; fail=1;;
   esac
 done
+echo ""
+echo "=== TEST 4: Global GEMINI.md Entry Point Resolution ==="
+GLOBAL_GEMINI="$(dirname "$(dirname "$BASE")")/GEMINI.md"
+echo "global=$GLOBAL_GEMINI"
+if [ -f "$GLOBAL_GEMINI" ]; then
+  echo "[PASS] Global GEMINI.md exists ($GLOBAL_GEMINI)"
+else
+  echo "[WARN] Global GEMINI.md missing ($GLOBAL_GEMINI) — plugin path still usable"
+fi
+echo ""
 if [ "$fail" -ne 0 ]; then echo ">>> SOME TESTS FAILED <<<"; exit 1; fi
 echo ">>> ALL LAZYAGENTIC TESTS PASSED <<<"

@@ -2,7 +2,8 @@
 # Usage: .\test_integrity.ps1 [-BasePath <plugin-dir>] [-Junction <junction-dir>]
 param(
     [string]$BasePath = (Join-Path $env:USERPROFILE ".gemini\config\plugins\lazyagentic"),
-    [string]$Junction = (Join-Path $env:USERPROFILE "agentic")
+    [string]$Junction = (Join-Path $env:USERPROFILE "agentic"),
+    [switch]$Strict
 )
 $base = $BasePath
 $junction = $Junction
@@ -16,6 +17,10 @@ if ((Test-Path $junction) -and (Test-Path "$junction\rules")) {
     Write-Host "[PASS] Junction $junction exists and is readable" -ForegroundColor Green
 } elseif ((Test-Path "$base\rules")) {
     Write-Host "[WARN] Junction missing — falling back to plugin path $base (see README Dual-Mount)" -ForegroundColor Yellow
+    if ($Strict) {
+        Write-Host "[FAIL] Strict mode: junction fallback not allowed" -ForegroundColor Red
+        exit 1
+    }
 } else {
     Write-Host "[FAIL] Neither junction nor plugin path readable" -ForegroundColor Red
     exit 1

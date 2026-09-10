@@ -9,3 +9,5 @@ It implements the **Agentic Sanctuary** architecture adapted from vesperchant's 
 - **Fail-Closed Instinct (`rules/00-instinct.md`)**: Anti-hallucination mandate ensuring uncertainty is verified against primary sources.
 - **Natural Korean Prose Policy (`rules/03-korean-natural-prose.md`)**: Eradicating translation-ese, zero-anaphora, and AI signature cliches.
 - **Dual-Mount Sanctuary**: Linked to `~/agentic` via Windows Directory Junction (macOS/Linux: symlink). If the junction is missing, agents must read `~/.gemini/config/plugins/lazyagentic/` instead. Verify with `test_integrity.ps1` (Windows) or `test_integrity.sh` (macOS/Linux).
+- **Version check**: `node scripts/sync-versions.mjs [--base <plugin-dir>]` verifies `plugin.json` version/rulesVersion, `RULES.md` Version, and `00-instinct` Version (exit 1 on mismatch).
+  - Hook scaffold at `hooks/intent-guard/intent-guard.mjs` is opt-in only; `plugin.json` keeps rules-only (no `hooks` key).
