@@ -11,3 +11,7 @@ It implements the **Agentic Sanctuary** architecture adapted from vesperchant's 
 - **Dual-Mount Sanctuary**: Linked to `~/agentic` via Windows Directory Junction (macOS/Linux: symlink). If the junction is missing, agents must read `~/.gemini/config/plugins/lazyagentic/` instead. Verify with `test_integrity.ps1` (Windows) or `test_integrity.sh` (macOS/Linux).
 - **Version check**: `node scripts/sync-versions.mjs [--base <plugin-dir>]` verifies `plugin.json` version/rulesVersion, `RULES.md` Version, and `00-instinct` Version (exit 1 on mismatch).
   - Hook scaffold at `hooks/intent-guard/intent-guard.mjs` is opt-in only; `plugin.json` keeps rules-only (no `hooks` key).
+- **Local verification only (CI workflow not wired — workflow scope constraint)**:
+  - `bash test_integrity.sh --base <plugin-dir> --junction ~/agentic`
+  - `pwsh -File test_integrity.ps1 -BasePath <plugin-dir> -Junction <junction>`
+  - `node scripts/sync-versions.mjs --base <plugin-dir>`

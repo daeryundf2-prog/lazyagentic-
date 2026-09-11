@@ -46,16 +46,12 @@ for f in "$BASE"/rules/*.md; do
 done
 echo ""
 
-echo "=== TEST 3: RULES.md Reference Targets ==="
-refs=$(grep -o '\[~/agentic/\(rules/[^]]*\)\]' "$BASE/RULES.md" | sed 's/^\[~/~/;s/\]$//' || true)
-for ref in $refs; do
-  rel=${ref#"~/agentic/"}
-  if [ -e "$BASE/$rel" ] || [ -e "$JUNCTION/$rel" ]; then
-    echo "[PASS] $rel"
-  else
-    echo "[FAIL] Missing target: $rel"; fail=1
-  fi
-done
+echo "=== TEST 3: RULES.md Reference Targets (via scripts/check-links.sh) ==="
+if bash "$BASE/scripts/check-links.sh" --base "$BASE" --junction "$JUNCTION"; then
+  :
+else
+  fail=1
+fi
 echo ""
 
 echo "=== TEST 3b: Title Consistency (NN- prefix vs '# NN.') ==="
