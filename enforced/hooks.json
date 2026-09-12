@@ -1,0 +1,28 @@
+{
+  "_comment": "FAIL_OPEN -> ask 성격: 가드 실패/불확실 시 차단하지 않고 확인 질문(ask)으로 전환",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./hooks/intent-guard/intent-guard.mjs"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./hooks/intent-guard/intent-guard.mjs",
+            "description": "turn audit: transcript_path 기반 턴 종료 감사"
+          }
+        ]
+      }
+    ]
+  }
+}
