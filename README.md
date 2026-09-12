@@ -15,6 +15,7 @@ It implements the **Agentic Sanctuary** architecture adapted from vesperchant's 
   - `bash test_integrity.sh --base <plugin-dir> --junction ~/agentic`
   - `pwsh -File test_integrity.ps1 -BasePath <plugin-dir> -Junction <junction>`
   - `node scripts/sync-versions.mjs --base <plugin-dir>`
+- **Enforced split (`enforced/`)**: a separate opt-in plugin (`lazyagentic-enforced`) bundling PreToolUse intent-guard + Stop turn-audit + MCP lint-rules. Clone it as its own plugin directory — see `enforced/README.md`. The main plugin stays rules-only.
 
 ## Lazy ecosystem (repo boundaries)
 
