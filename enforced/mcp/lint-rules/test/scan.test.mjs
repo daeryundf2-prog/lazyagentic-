@@ -96,4 +96,25 @@ describe("scan_korean_prose", () => {
       assert.equal(existsSync(log), false);
     } finally { rmSync(dir, { recursive: true, force: true }); }
   });
+
+  it("eval corpus recall>=0.85", () => {
+    const rows = readFileSync(new URL("../eval/corpus.jsonl", import.meta.url), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+    const viols = rows.filter((r) => r.label === "violation");
+    let hit = 0; const missed = [];
+    for (const r of viols) { if (scanKoreanProse(r.text).length > 0) hit++; else missed.push(`${r.id}[${r.rule}]`); }
+    const rec = hit / viols.length;
+    assert.ok(rec >= 0.85, `recall ${rec.toFixed(3)}=${hit}/${viols.length} missed: ${missed.join(", ")}`);
+  });
+
+  it("eval corpus precision>=0.90", () => {
+    const rows = readFileSync(new URL("../eval/corpus.jsonl", import.meta.url), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+    let tp = 0, fp = 0; const falses = [];
+    for (const r of rows) {
+      const h = scanKoreanProse(r.text).length > 0;
+      if (r.label === "violation" && h) tp++;
+      if (r.label === "clean" && h) { fp++; falses.push(`${r.id}=>${scanKoreanProse(r.text).map((x) => x.rule).join(",")}`); }
+    }
+    const prec = tp / (tp + fp || 1);
+    assert.ok(prec >= 0.90, `precision ${prec.toFixed(3)}=${tp}/${tp + fp} falses: ${falses.join(", ")}`);
+  });
 });

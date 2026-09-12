@@ -1,0 +1,60 @@
+{"id":"V01","label":"violation","rule":"park-da","text":"임시 코드를 박다 방식으로 처리했다는 기록이 남아 있다."}
+{"id":"V02","label":"violation","rule":"park-da","text":"로그를 박다 기록했다며 인계 문서에 적혀 있다."}
+{"id":"V03","label":"violation","rule":"park-compound","text":"데이터를 박아넣고 배포했다는 설명이 포함되어 있다."}
+{"id":"V04","label":"violation","rule":"park-compound","text":"설정값을 박아 넣고 저장했다는 문장이 있다."}
+{"id":"V05","label":"violation","rule":"park-inflected","text":"값을 박아서 저장했다는 내용이 문서에 있다."}
+{"id":"V06","label":"violation","rule":"park-inflected","text":"로그를 박는다 방식으로 기록한다는 문장이 있다."}
+{"id":"V07","label":"violation","rule":"double-passive-ji","text":"이 결정은 판단되어진다는 서술이 보고서에 있다."}
+{"id":"V08","label":"violation","rule":"double-passive-ji","text":"결과가 판단되어지는 과정이라는 설명이 있다."}
+{"id":"V09","label":"violation","rule":"double-passive-jyeo","text":"문서가 작성되어져 있다는 문장이 포함되어 있다."}
+{"id":"V10","label":"violation","rule":"double-passive-jyeo","text":"보고서가 검토되어져 있다는 내용이 있다."}
+{"id":"V11","label":"violation","rule":"by-passive","text":"AI에 의해 생성된 코드라는 표현이 문서에 있다."}
+{"id":"V12","label":"violation","rule":"by-passive","text":"AI에 의하여 작성된 문서라는 서술이 있다."}
+{"id":"V13","label":"violation","rule":"pillar-suffix","text":"4대 핵심 운영 축을 추진한다는 계획이 있다."}
+{"id":"V14","label":"violation","rule":"pillar-suffix","text":"3대 전략 축을 수립했다는 내용이 있다."}
+{"id":"V15","label":"violation","rule":"pillar-suffix","text":"신규 사업 축을 설정했다는 문장이 보고서에 있다."}
+{"id":"V16","label":"violation","rule":"pillar-suffix","text":"5대 기술 축을 발표했다는 내용이 문서에 있다."}
+{"id":"V17","label":"violation","rule":"experience-possession","text":"실전 경험을 보유하고 있습니다라는 문장이 자기소개서에 있다."}
+{"id":"V18","label":"violation","rule":"experience-possession","text":"최적화 경험을 가지고 있다는 서술이 문서에 있다."}
+{"id":"V19","label":"violation","rule":"experience-possession","text":"풍부한 실전 경험 보유하고 있습니다라는 문장이 있다."}
+{"id":"V20","label":"violation","rule":"day-one-filler","text":"투입 첫날부터 가용성을 유지했다는 문장이 있다."}
+{"id":"V21","label":"violation","rule":"day-one-filler","text":"첫날부터 체계를 갖췄다는 서술이 보고서에 있다."}
+{"id":"V22","label":"violation","rule":"day-one-filler","text":"투입 첫 날부터 체계를 갖췄다는 문장이 있다."}
+{"id":"V23","label":"violation","rule":"cliche-very-important","text":"이 기능은 매우 중요합니다라는 문장이 문서에 있다."}
+{"id":"V24","label":"violation","rule":"cliche-very-important","text":"보안은 매우 중요한 요소라는 서술이 있다."}
+{"id":"V25","label":"violation","rule":"cliche-core","text":"핵심적인 역할을 수행한다는 문장이 있다."}
+{"id":"V26","label":"violation","rule":"cliche-core","text":"핵심적인 문제 해결을 강조한다는 내용이 있다."}
+{"id":"V27","label":"violation","rule":"cliche-fast-changing","text":"빠르게 변화하는 시장에 대응한다는 문장이 있다."}
+{"id":"V28","label":"violation","rule":"cliche-fast-changing","text":"빠르게 변화하는 기술 환경에 적응한다는 내용이 있다."}
+{"id":"V29","label":"violation","rule":"cliche-noticeably","text":"눈에 띄게 성과가 향상되었다는 문장이 있다."}
+{"id":"V30","label":"violation","rule":"cliche-noticeably","text":"눈에 띄게 품질이 개선되었다는 서술이 있다."}
+{"id":"C01","label":"clean","rule":"none","text":"운영 축소를 검토했다는 내용이 회의록에 있다."}
+{"id":"C02","label":"clean","rule":"none","text":"전략 축소 방안을 마련했다는 문장이 있다."}
+{"id":"C03","label":"clean","rule":"none","text":"핵심 축적 데이터를 분석했다는 내용이 있다."}
+{"id":"C04","label":"clean","rule":"none","text":"박아름 박사가 발표한 논문을 검토했다."}
+{"id":"C05","label":"clean","rule":"none","text":"박아영 연구원이 참여한 과제를 정리했다."}
+{"id":"C06","label":"clean","rule":"none","text":"박물관 전시 안내 시스템을 점검했다."}
+{"id":"C07","label":"clean","rule":"none","text":"박사 학위 논문을 검토하고 인용 형식을 확인했다."}
+{"id":"C08","label":"clean","rule":"none","text":"핵심 모듈의 인터페이스를 정의하고 문서를 갱신했다."}
+{"id":"C09","label":"clean","rule":"none","text":"매우 작은 값을 반환하도록 기본값을 설정했다."}
+{"id":"C10","label":"clean","rule":"none","text":"파일 크기를 축소하는 로직을 추가하고 테스트했다."}
+{"id":"C11","label":"clean","rule":"none","text":"경험적 증거를 바탕으로 가설을 세우고 검증했다."}
+{"id":"C12","label":"clean","rule":"none","text":"첫날 배포 일정을 조율하고 담당자를 지정했다."}
+{"id":"C13","label":"clean","rule":"none","text":"AI가 생성한 코드를 검토하고 필요한 부분을 다듬었다."}
+{"id":"C14","label":"clean","rule":"none","text":"외부 문제로 발생한 오류를 로그에서 확인했다."}
+{"id":"C15","label":"clean","rule":"none","text":"4대 핵심 운영 방향을 정하고 과제를 나누었다."}
+{"id":"C16","label":"clean","rule":"none","text":"비동기 백엔드 환경에서 논블로킹 I/O 성능을 최적화한 경험이 있다."}
+{"id":"C17","label":"clean","rule":"none","text":"투입 초기 체계적인 인벤토리 파악을 통해 안정성을 높였다."}
+{"id":"C18","label":"clean","rule":"none","text":"이 기능은 서비스 안정에 도움이 된다는 평가를 받았다."}
+{"id":"C19","label":"clean","rule":"none","text":"시장 흐름에 맞춰 대응 방안을 마련하고 실행했다."}
+{"id":"C20","label":"clean","rule":"none","text":"성과가 조금씩 나아지고 있다는 보고를 받았다."}
+{"id":"C21","label":"clean","rule":"none","text":"새로운 API를 설계한 뒤 통합 테스트를 실행하여 안정성을 확인했다."}
+{"id":"C22","label":"clean","rule":"none","text":"설정 파일을 열어 수정한 뒤 저장하고 권한을 확인했다."}
+{"id":"C23","label":"clean","rule":"none","text":"이 결정은 판단된다는 검토 의견을 남겼다."}
+{"id":"C24","label":"clean","rule":"none","text":"문서는 작성되었다는 기록을 남기고 배포했다."}
+{"id":"C25","label":"clean","rule":"none","text":"데이터를 삽입하고 저장한 뒤 무결성을 검증했다."}
+{"id":"C26","label":"clean","rule":"none","text":"값을 저장한 뒤 캐시를 갱신하고 응답을 확인했다."}
+{"id":"C27","label":"clean","rule":"none","text":"프로젝트 완료를 축하하는 메시지를 남기고 회고했다."}
+{"id":"C28","label":"clean","rule":"none","text":"로그 축적 방식을 개선하고 보관 주기를 조정했다."}
+{"id":"C29","label":"clean","rule":"none","text":"성과가 서서히 개선되고 있다는 지표를 확인했다."}
+{"id":"C30","label":"clean","rule":"none","text":"빠르게 대응 방안을 마련하고 실행 계획을 공유했다."}
