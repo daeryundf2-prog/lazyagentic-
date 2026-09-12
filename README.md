@@ -15,3 +15,13 @@ It implements the **Agentic Sanctuary** architecture adapted from vesperchant's 
   - `bash test_integrity.sh --base <plugin-dir> --junction ~/agentic`
   - `pwsh -File test_integrity.ps1 -BasePath <plugin-dir> -Junction <junction>`
   - `node scripts/sync-versions.mjs --base <plugin-dir>`
+
+## Lazy ecosystem (repo boundaries)
+
+- `LAZYANTIGRAVITY` — runtime umbrella: hook aggregation, shared-skill materialization, bundled MCP runtimes
+- `lazyforensic` — forensic / Korean-law domain plugin
+- `lazyothers` — legal-document / HWP / humanize domain plugin
+- `lazyagentic` (this repo) — rules-only governance plugin (Dual-Mount `~/agentic`)
+- [`korean-law-mcp`](https://github.com/daeryundf2-prog/korean-law-mcp) — Korean-law MCP server, cloned+built by lazyforensic
+
+Shared asset: `scripts/coverage_audit.mjs` is kept byte-identical across lazyforensic (canonical), lazyothers, and LAZYANTIGRAVITY — sync all three on change.
