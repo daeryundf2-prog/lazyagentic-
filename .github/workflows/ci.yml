@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+      - name: Integrity suite (rules, links, entry points)
+        run: bash test_integrity.sh --base .
+      - name: Version consistency (plugin.json / RULES.md / 00-instinct)
+        run: node scripts/sync-versions.mjs --base .
+      - name: Syntax check enforced hook + MCP sources
+        run: |
+          node --check enforced/hooks/intent-guard/intent-guard.mjs
+          find enforced/mcp/lint-rules/src -name '*.mjs' -exec node --check {} +
+      - name: lint-rules unit tests
+        run: node --test enforced/mcp/lint-rules/test/*.test.mjs
+      - name: JSON validity (plugin, hooks)
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('plugin.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('enforced/plugin.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('enforced/hooks.json','utf8'))"
