@@ -4,6 +4,8 @@
 // Rule breakdown: 박다 variants 3 + double-passive 2 + ~에의해 1 + ~축 1
 //   + experience-possession 1 + 투입첫날부터 1 + AI-cliche 4 = 13.
 // IO: stdin JSON -> stdout JSON. Import: { scanKoreanProse } from "./cli.mjs".
+import { appendFileSync } from "node:fs";
+function llog(v){try{const p=process.env.LAZYAGENTIC_LINT_LOG;if(!p)return;appendFileSync(p,JSON.stringify({ts:new Date().toISOString(),count:v.length,rules:[...new Set(v.map(x=>x.rule))]})+"\n");}catch{}}
 
 export const TOOL_NAME = "scan_korean_prose";
 
@@ -35,6 +37,7 @@ export function scanKoreanProse(text) {
       }
     }
   });
+  llog(violations);
   return violations;
 }
 

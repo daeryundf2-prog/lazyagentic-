@@ -18,3 +18,8 @@ PreToolUse intent-guard + Stop 턴 감사 + MCP lint-rules로 한글 문체를 �
 ## 검증
 node --test enforced/mcp/lint-rules/test/scan.test.mjs 실행으로 통과를 확인한다.
 node --check 2파일과 기존 sh ALL PASSED를 함께 유지한다.
+
+## 판정 로그
+- `LAZYAGENTIC_GUARD_LOG`: 설정 시 intent-guard 판정 1줄(JSON) append.
+- `LAZYAGENTIC_LINT_LOG`: 설정 시 scan_korean_prose 요약 1줄(JSON) append.
+- 미설정 시 로그 미생성(기존 stdout 동작 유지).

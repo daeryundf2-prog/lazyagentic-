@@ -2,7 +2,7 @@
 // intent-guard.mjs (enforced) — copied from body hooks/intent-guard/intent-guard.mjs
 // FAIL_OPEN -> ask 성격: 파싱 실패/전사 누락 시 차단하지 않고 approve(확인 질문으로 전환)
 // Input: hook JSON via stdin { event, transcript_path }. Output: decision JSON to stdout.
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, appendFileSync } from "node:fs";
 const KEYWORDS_EN = ["unverified", "assumed", "speculative"];
 const KEYWORDS_KO = ["아마도", "추정컨대", "확실하지 않", "검증 없이"];
 const KEYWORDS = [...KEYWORDS_EN, ...KEYWORDS_KO];
@@ -11,11 +11,12 @@ async function readStdin() {
   for await (const c of process.stdin) d += c;
   return d.trim();
 }
+function glog(d,h){try{const p=process.env.LAZYAGENTIC_GUARD_LOG;if(!p)return;appendFileSync(p,JSON.stringify({ts:new Date().toISOString(),decision:d,hit:h})+"\n");}catch{}}
 function approve(reason) {
-  console.log(JSON.stringify({ decision: "approve", reason }));
+  console.log(JSON.stringify({ decision: "approve", reason }));glog("approve",reason);
 }
 function cont(reason) {
-  console.log(JSON.stringify({ decision: "continue", reason }));
+  console.log(JSON.stringify({ decision: "continue", reason }));glog("continue",reason);
 }
 async function main() {
   let evt = {};

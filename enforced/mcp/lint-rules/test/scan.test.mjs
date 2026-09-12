@@ -1,5 +1,8 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
+import { mkdtempSync, rmSync, existsSync, readFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { scanKoreanProse, RULES, TOOL_NAME } from "../src/cli.mjs";
 
 const VIOLATIONS = [
@@ -70,5 +73,27 @@ describe("scan_korean_prose", () => {
       const v = scanKoreanProse(s);
       assert.equal(v.length, 0, `false positive: "${s}" -> ${JSON.stringify(v)}`);
     }
+  });
+
+  it("writes lint log line when LAZYAGENTIC_LINT_LOG set", () => {
+    const dir = mkdtempSync(join(tmpdir(), "lintlog-"));
+    const log = join(dir, "lint.log");
+    process.env.LAZYAGENTIC_LINT_LOG = log;
+    try {
+      scanKoreanProse("코드를 박다 처리했다.");
+      assert.ok(existsSync(log));
+      const j = JSON.parse(readFileSync(log, "utf8").trim().split("\n").at(-1));
+      assert.ok(j.ts && typeof j.count === "number" && Array.isArray(j.rules));
+    } finally { delete process.env.LAZYAGENTIC_LINT_LOG; rmSync(dir, { recursive: true, force: true }); }
+  });
+
+  it("writes no file when LAZYAGENTIC_LINT_LOG unset", () => {
+    delete process.env.LAZYAGENTIC_LINT_LOG;
+    const dir = mkdtempSync(join(tmpdir(), "lintlog-"));
+    const log = join(dir, "nolog.log");
+    try {
+      scanKoreanProse("코드를 박다 처리했다.");
+      assert.equal(existsSync(log), false);
+    } finally { rmSync(dir, { recursive: true, force: true }); }
   });
 });
