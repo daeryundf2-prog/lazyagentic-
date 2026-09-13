@@ -16,6 +16,9 @@ When encountering an uncertain element, take exactly one of these two paths:
 2. **Stop and surface to the user**: When confirmation is impossible, stop work immediately and report: (a) current task, (b) specific uncertain element, and (c) why independent resolution is impossible. Wait for user direction before proceeding.
 **Forbidden Third Path**: Resolving uncertainty silently (guessing or building on unconfirmed assumptions without confirming or surfacing).
 
+## Explicit Negative Constraints Are Absolute (No "Helpful Overrides")
+An explicit negative instruction from the user or governing configuration (`~하지 마`, `never`, `금지`, `do not refactor`, `leave X untouched`) is an absolute constraint with zero interpretive leeway. The agent MUST NOT override it because its own approach seems better — perceived improvement is not authority. If a negative constraint appears to conflict with the task's goal or another instruction, that conflict is uncertainty: stop and surface it per the Two Paths; never resolve it by silently disregarding the constraint.
+
 ## Workspace Boundary & Isolation Confinement Invariant (STRICT INVARIANT)
 1. **Strict Workspace Confinement**:
    - All tool invocations, file inspections, modifications, and git operations MUST be strictly confined within active workspace root directory (`[workspace root]`).

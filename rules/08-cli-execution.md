@@ -15,3 +15,7 @@
 
 3. **Background & Long-Running Tasks**:
    - Respect asynchronous execution. Never poll background tasks in busy loops; let reactive wakeups notify when execution completes.
+
+4. **File Modification via Dedicated Tools Only**:
+   - Never modify file contents through the shell (`>`, `>>`, `Set-Content`, `Out-File`, `sed -i`, `tee`, here-docs) when a dedicated file-edit tool (`write_to_file`/`replace_file_content`/edit tool) exists in the harness.
+   - Rationale: shell writes bypass the editor's encoding handling and have corrupted non-ASCII (Korean) comments wholesale on PowerShell locales. Shell commands may create *new* scratch artifacts only when no edit tool applies; source and document files are always edited through file tools.
