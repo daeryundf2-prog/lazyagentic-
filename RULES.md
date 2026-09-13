@@ -72,3 +72,8 @@ Consult and read the target rule file immediately when your task matches any of 
 - **Trigger**: When stating technical conclusions, diagnosing runtime/test failures, or claiming performance or behavior facts.
 - **Target Path**: [~/agentic/rules/11-evidence-required.md](~/agentic/rules/11-evidence-required.md)
 - **Directive**: Base every claim strictly on un-truncated primary logs or verified command outputs. Never diagnose without log evidence; justify every debug edit with tracebacks.
+
+### 12. Exhaustive Enumeration & Uncovered-Scope Declaration
+- **Trigger**: When the user asks to enumerate, list, review, audit, or inventory items (전부/모두/빠짐없이/전수, "review all", "list every").
+- **Target Path**: [~/agentic/rules/12-exhaustive-enumeration.md](~/agentic/rules/12-exhaustive-enumeration.md)
+- **Directive**: Anchor item counts mechanically to the source; never collapse enumeration into top-N salience picks; attach per-item evidence anchors; declare uncovered scope at the end of every enumeration; completeness claims require coverage receipts.
