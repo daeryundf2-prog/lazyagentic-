@@ -24,6 +24,7 @@ This file is the single, authoritative entry point for all AI agents (Gemini/Ant
 3. **Single Session Read Principle**:
    - **Do NOT re-read a rule file if you have already read it in the current session.**
    - Once a target rule file (`~/agentic/rules/##-name.md`) has been loaded into your context during the active session, refrain from executing redundant re-reads when encountering subsequent triggers for that file. Rely strictly on the recalled rule directives in your context memory.
+   - **Drift exception**: if you catch yourself violating a rule, or the user points out a rule violation, or the session has grown long enough that recalled directives feel vague, re-read that specific rule file immediately. Prompt decay across turns is a documented failure mode — a re-read on drift is mandatory, not redundant.
 
 ---
 

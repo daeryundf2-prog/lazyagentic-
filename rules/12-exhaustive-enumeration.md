@@ -24,3 +24,7 @@
 
 6. **Division Over Delegation**:
    - When the universe exceeds ~20 items, split the enumeration by structural boundary (directory, category, file) and cover each partition explicitly — do not let the model self-select a representative subset.
+
+7. **No Placeholder Stubs (Implementation Truncation)**:
+   - When implementation was requested, delivering `// TODO`, `pass`, `...`, or stub bodies in place of working logic is enumeration-truncation in code form — the same violation as cutting a list short.
+   - If full implementation genuinely exceeds one response, state which parts are real and which remain, with a concrete continuation plan — never present scaffold as finished work.
