@@ -67,17 +67,17 @@ for f in "$BASE"/rules/*.md; do
 done
 echo ""
 
-echo "=== TEST 4: Global GEMINI.md Entry Point Resolution ==="
+echo "=== TEST 4: Entry Point Resolution (global preferred, plugin path fallback) ==="
 GLOBAL_GEMINI="$(dirname "$(dirname "$BASE")")/GEMINI.md"
-echo "global=$GLOBAL_GEMINI"
+PLUGIN_GEMINI="$BASE/GEMINI.md"
+echo "global=$GLOBAL_GEMINI plugin=$PLUGIN_GEMINI"
 if [ -f "$GLOBAL_GEMINI" ]; then
   echo "[PASS] Global GEMINI.md exists ($GLOBAL_GEMINI)"
+elif [ -f "$PLUGIN_GEMINI" ]; then
+  echo "[PASS] Plugin-path GEMINI.md exists ($PLUGIN_GEMINI, global missing — single-plugin mode)"
 else
-  echo "[WARN] Global GEMINI.md missing ($GLOBAL_GEMINI) — plugin path still usable"
-  if [ "$STRICT" -eq 1 ]; then
-    echo "[FAIL] Strict mode: Global GEMINI.md missing ($GLOBAL_GEMINI)"
-    fail=1
-  fi
+  echo "[FAIL] No entry point: neither $GLOBAL_GEMINI nor $PLUGIN_GEMINI exists"
+  fail=1
 fi
 echo ""
 

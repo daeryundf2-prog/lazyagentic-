@@ -2,7 +2,9 @@
 // intent-guard.mjs — STOP/PreToolUse minimal scaffold (rules-only repo, no auto-registration)
 // Input: hook JSON via stdin { event, transcript_path }. Output: decision JSON to stdout.
 import { readFileSync, existsSync } from "node:fs";
-const KEYWORDS = ["unverified", "assumed", "speculative"];
+const KEYWORDS_EN = ["unverified", "assumed", "speculative"];
+const KEYWORDS_KO = ["아마도", "추정컨대", "확실하지 않", "검증 없이"];
+const KEYWORDS = [...KEYWORDS_EN, ...KEYWORDS_KO];
 async function readStdin() {
   let d = "";
   for await (const c of process.stdin) d += c;
@@ -23,7 +25,7 @@ async function main() {
   let text = "";
   try { text = readFileSync(tp, "utf8"); } catch { approve("transcript unreadable"); return; }
   const low = text.toLowerCase();
-  const hit = KEYWORDS.filter((k) => low.includes(k));
+  const hit = KEYWORDS.filter((k) => low.includes(k.toLowerCase()) || text.includes(k));
   if (hit.length > 0) { cont(`unverified-claim keyword: ${hit.join(", ")}`); return; }
   approve("no unverified-claim keyword");
 }

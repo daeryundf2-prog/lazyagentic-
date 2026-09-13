@@ -84,17 +84,17 @@ foreach ($file in $ruleFiles) {
     }
 }
 
-Write-Host "`n=== TEST 4: Global GEMINI.md Entry Point Resolution ==="
+Write-Host "`n=== TEST 4: Entry Point Resolution (global preferred, plugin path fallback) ==="
 $globalGemini = Join-Path (Split-Path (Split-Path $base -Parent) -Parent) "GEMINI.md"
+$pluginGemini = Join-Path $base "GEMINI.md"
 # $base=~/.gemini/config/plugins/lazyagentic -> global dir = ~/.gemini/config
 if (Test-Path $globalGemini) {
     Write-Host "[PASS] Global GEMINI.md exists ($globalGemini)" -ForegroundColor Green
+} elseif (Test-Path $pluginGemini) {
+    Write-Host "[PASS] Plugin-path GEMINI.md exists ($pluginGemini, global missing — single-plugin mode)" -ForegroundColor Green
 } else {
-    Write-Host "[WARN] Global GEMINI.md missing ($globalGemini) — plugin path still usable" -ForegroundColor Yellow
-    if ($Strict) {
-        Write-Host "[FAIL] Strict mode: Global GEMINI.md missing ($globalGemini)" -ForegroundColor Red
-        $allPassed = $false
-    }
+    Write-Host "[FAIL] No entry point: neither $globalGemini nor $pluginGemini exists" -ForegroundColor Red
+    $allPassed = $false
 }
 
 Write-Host "`n=== TEST 5: Markdown Relative Links Integrity ==="
